@@ -1,6 +1,8 @@
-rootProject.name = 'DatePickerExample'
+rootProject.name = 'DetoxRNExample'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
 
-include ':reactnativedatepicker'
-project(':reactnativedatepicker').projectDir = new File(rootProject.projectDir, '../../android')
+include ':react-native-date-picker'
+project(':react-native-date-picker').projectDir = new File(rootProject.projectDir, '../../android')
+
+
