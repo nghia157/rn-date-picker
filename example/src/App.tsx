@@ -1,19 +1,26 @@
 // @ts-nocheck
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
-import RCTDatePickerIOS from './DatePickerIOS';
+import { Platform, StyleSheet, View } from 'react-native';
+import DatePickerAndroid from './DatePickerAndroid';
+import DatePickerIOS from './DatePickerIOS';
+const DatePicker = Platform.select({
+  android: DatePickerAndroid,
+  ios: DatePickerIOS,
+});
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <RCTDatePickerIOS
+      <DatePicker
         modal={true}
         open={true}
         date={new Date()}
         confirmText="confirm"
         cancelText="Cancel"
         mode="datetime"
-        onConfirm={(date) => {}}
+        onConfirm={(date) => {
+          console.log(date);
+        }}
         onCancel={() => {}}
       />
     </View>
