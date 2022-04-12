@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import DatePickerAndroid from './DatePickerAndroid';
 import DatePickerIOS from './DatePickerIOS';
+
 const DatePicker = Platform.select({
   android: DatePickerAndroid,
   ios: DatePickerIOS,
@@ -12,8 +13,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <DatePicker
-        modal={true}
-        open={true}
+        androidVariant="iosClone"
         date={new Date()}
         confirmText="confirm"
         cancelText="Cancel"

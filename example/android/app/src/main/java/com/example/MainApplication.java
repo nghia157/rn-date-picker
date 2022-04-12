@@ -8,8 +8,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-
-import java.util.Arrays;
+import com.facebook.react.PackageList;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
@@ -19,12 +18,12 @@ public class MainApplication extends Application implements ReactApplication {
             return BuildConfig.DEBUG;
         }
 
-        @Override
+     @Override
         protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(
-                    new MainReactPackage(),
-            new DatePickerPackage()
-            );
+          @SuppressWarnings("UnnecessaryLocalVariable")
+          List<ReactPackage> packages = new PackageList(this).getPackages();
+          packages.add(new DatePickerPackage());
+          return packages;
         }
 
         @Override
