@@ -62,7 +62,6 @@
         // only allow gregorian calendar
         self.calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
     }
-    self.backgroundColor = [UIColor redColor];
     return self;
 }
 
@@ -110,6 +109,16 @@
     else {
         [self setColor:hexColor];
     }
+}
+
+- (void)setBackgroundColorProp:(NSString *)hexColor
+{
+    unsigned intColor = 0;
+    NSScanner *scanner = [NSScanner scannerWithString:hexColor];
+    [scanner setScanLocation:1]; // bypass '#' character
+    [scanner scanHexInt:&intColor];
+    
+    self.backgroundColor = UIColorFromRGB(intColor);
 }
 
 

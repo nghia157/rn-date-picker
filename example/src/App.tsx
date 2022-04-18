@@ -14,13 +14,14 @@ export default function App() {
     <View style={styles.container}>
       <DatePicker
         androidVariant="iosClone"
+        locale="en"
         date={new Date()}
-        confirmText="confirm"
-        cancelText="Cancel"
         mode="datetime"
         onConfirm={(date) => {
           console.log(date);
         }}
+        textColor="#000000"
+        backgroundColor="red"
         onCancel={() => {}}
       />
     </View>
