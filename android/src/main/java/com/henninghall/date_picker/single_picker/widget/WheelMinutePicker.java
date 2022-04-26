@@ -1,8 +1,8 @@
-package com.henninghall.date_picker.widget;
+package com.henninghall.date_picker.single_picker.widget;
 
-import static com.henninghall.date_picker.widget.SingleDateAndTimeConstants.MAX_MINUTES;
-import static com.henninghall.date_picker.widget.SingleDateAndTimeConstants.MIN_MINUTES;
-import static com.henninghall.date_picker.widget.SingleDateAndTimeConstants.STEP_MINUTES_DEFAULT;
+import static com.henninghall.date_picker.single_picker.widget.SingleDateAndTimeConstants.MAX_MINUTES;
+import static com.henninghall.date_picker.single_picker.widget.SingleDateAndTimeConstants.MIN_MINUTES;
+import static com.henninghall.date_picker.single_picker.widget.SingleDateAndTimeConstants.STEP_MINUTES_DEFAULT;
 
 import android.content.Context;
 import android.util.AttributeSet;

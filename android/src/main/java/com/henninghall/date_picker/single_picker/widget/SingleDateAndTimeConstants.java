@@ -1,4 +1,4 @@
-package com.henninghall.date_picker.widget;
+package com.henninghall.date_picker.single_picker.widget;
 
 public class SingleDateAndTimeConstants {
     public static final int MIN_HOUR_DEFAULT = 0;

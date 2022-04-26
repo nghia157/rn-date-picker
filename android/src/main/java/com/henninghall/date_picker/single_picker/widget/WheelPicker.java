@@ -1,4 +1,4 @@
-package com.henninghall.date_picker.widget;
+package com.henninghall.date_picker.single_picker.widget;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -27,8 +27,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import com.henninghall.date_picker.R;
-import com.henninghall.date_picker.utils.DateHelper;
-import com.henninghall.date_picker.utils.LocaleHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;

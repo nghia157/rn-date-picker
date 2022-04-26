@@ -1,7 +1,7 @@
-package com.henninghall.date_picker.widget;
+package com.henninghall.date_picker.single_picker.widget;
 
 
-import static com.henninghall.date_picker.widget.SingleDateAndTimeConstants.DAYS_PADDING;
+import static com.henninghall.date_picker.single_picker.widget.SingleDateAndTimeConstants.DAYS_PADDING;
 
 import android.content.Context;
 import android.util.AttributeSet;

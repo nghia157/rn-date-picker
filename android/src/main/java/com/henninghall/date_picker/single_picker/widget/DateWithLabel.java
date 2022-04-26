@@ -1,6 +1,4 @@
-package com.henninghall.date_picker.widget;
-
-import com.henninghall.date_picker.utils.DateHelper;
+package com.henninghall.date_picker.single_picker.widget;
 
 import java.util.Date;
 

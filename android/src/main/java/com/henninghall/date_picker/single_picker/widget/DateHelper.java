@@ -1,4 +1,4 @@
-package com.henninghall.date_picker.utils;
+package com.henninghall.date_picker.single_picker.widget;
 
 import androidx.annotation.NonNull;
 
