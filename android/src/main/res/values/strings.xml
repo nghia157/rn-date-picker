@@ -10,4 +10,7 @@
     <string name="time_tag">Time is</string>
     <string name="hour_tag">Hour :</string>
     <string name="minutes_tag">Minutes </string>
+    <string name="picker_today" translatable="false">Today</string>
+    <string name="picker_am" translatable="false">AM</string>
+    <string name="picker_pm" translatable="false">PM</string>
 </resources>

@@ -1,6 +1,6 @@
 package com.henninghall.date_picker.widget;
 
-import com.github.florent37.singledateandtimepicker.DateHelper;
+import com.henninghall.date_picker.utils.DateHelper;
 
 import java.util.Date;
 

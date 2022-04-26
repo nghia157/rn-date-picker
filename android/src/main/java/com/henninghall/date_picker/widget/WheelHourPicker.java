@@ -1,9 +1,9 @@
 package com.henninghall.date_picker.widget;
 
-import static com.github.florent37.singledateandtimepicker.widget.SingleDateAndTimeConstants.MAX_HOUR_AM_PM;
-import static com.github.florent37.singledateandtimepicker.widget.SingleDateAndTimeConstants.MAX_HOUR_DEFAULT;
-import static com.github.florent37.singledateandtimepicker.widget.SingleDateAndTimeConstants.MIN_HOUR_DEFAULT;
-import static com.github.florent37.singledateandtimepicker.widget.SingleDateAndTimeConstants.STEP_HOURS_DEFAULT;
+import static com.henninghall.date_picker.widget.SingleDateAndTimeConstants.MAX_HOUR_AM_PM;
+import static com.henninghall.date_picker.widget.SingleDateAndTimeConstants.MAX_HOUR_DEFAULT;
+import static com.henninghall.date_picker.widget.SingleDateAndTimeConstants.MIN_HOUR_DEFAULT;
+import static com.henninghall.date_picker.widget.SingleDateAndTimeConstants.STEP_HOURS_DEFAULT;
 
 import android.content.Context;
 import android.util.AttributeSet;

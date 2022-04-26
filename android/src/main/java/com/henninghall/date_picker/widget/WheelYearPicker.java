@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
 
-import com.github.florent37.singledateandtimepicker.R;
+import com.henninghall.date_picker.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
