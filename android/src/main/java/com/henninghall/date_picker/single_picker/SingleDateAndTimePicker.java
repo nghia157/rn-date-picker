@@ -1,4 +1,4 @@
-package com.henninghall.date_picker.single_picker.widget;
+package com.henninghall.date_picker.single_picker;
 
 
 import static com.henninghall.date_picker.single_picker.widget.SingleDateAndTimeConstants.DAYS_PADDING;
@@ -19,6 +19,15 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.henninghall.date_picker.R;
+import com.henninghall.date_picker.single_picker.widget.DateWithLabel;
+import com.henninghall.date_picker.single_picker.widget.WheelAmPmPicker;
+import com.henninghall.date_picker.single_picker.widget.WheelDayOfMonthPicker;
+import com.henninghall.date_picker.single_picker.widget.WheelDayPicker;
+import com.henninghall.date_picker.single_picker.widget.WheelHourPicker;
+import com.henninghall.date_picker.single_picker.widget.WheelMinutePicker;
+import com.henninghall.date_picker.single_picker.widget.WheelMonthPicker;
+import com.henninghall.date_picker.single_picker.widget.WheelPicker;
+import com.henninghall.date_picker.single_picker.widget.WheelYearPicker;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

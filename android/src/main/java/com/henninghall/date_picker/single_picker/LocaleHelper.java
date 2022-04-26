@@ -1,4 +1,4 @@
-package com.henninghall.date_picker.single_picker.widget;
+package com.henninghall.date_picker.single_picker;
 
 import android.content.Context;
 import android.content.res.Configuration;
