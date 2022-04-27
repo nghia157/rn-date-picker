@@ -66,7 +66,7 @@ public class State {
         return (Prop) props.get(name);
     }
 
-    void setProp(String propName, Dynamic value) {
+    public void setProp(String propName, Dynamic value) {
         getProp(propName).setValue(value);
     }
 

@@ -10,12 +10,12 @@
   <color name="picker_default_divider_color">@android:color/transparent</color>
   <dimen name="picker_default_divider_height">1dp</dimen>
   <drawable name="picker_default_divider">@drawable/picker_divider</drawable>
-  <dimen name="WheelItemTextSize">24sp</dimen>
+  <dimen name="WheelItemTextSize">22sp</dimen>
   <dimen name="WheelItemSpace">12dp</dimen>
   <dimen name="WheelIndicatorSize">2dp</dimen>
   <dimen name="WheelMargins">8dp</dimen>
   <dimen name="wheel_spacing">30dp</dimen>
-  <dimen name="wheelSelectorHeight">40dp</dimen>
+  <dimen name="wheelSelectorHeight">230dp</dimen>
   <declare-styleable name="WheelPicker">
     <attr name="wheel_data" format="reference"/>
     <attr name="wheel_selected_item_position" format="integer"/>

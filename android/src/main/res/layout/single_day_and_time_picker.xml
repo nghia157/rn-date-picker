@@ -13,7 +13,7 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <com.github.florent37.singledateandtimepicker.widget.WheelDayPicker
+        <com.henninghall.date_picker.single_picker.widget.WheelDayPicker
             android:id="@+id/daysPicker"
             android:layout_width="0dp"
             android:layout_weight ="3"
@@ -24,7 +24,7 @@
             app:wheel_item_align="right"
             />
 
-        <com.github.florent37.singledateandtimepicker.widget.WheelDayOfMonthPicker
+        <com.henninghall.date_picker.single_picker.widget.WheelDayOfMonthPicker
             android:id="@+id/daysOfMonthPicker"
             android:layout_width="0dp"
             android:layout_weight ="2"
@@ -34,7 +34,7 @@
             app:wheel_atmospheric="true"
             app:wheel_item_align="right" />
 
-        <com.github.florent37.singledateandtimepicker.widget.WheelMonthPicker
+        <com.henninghall.date_picker.single_picker.widget.WheelMonthPicker
             android:id="@+id/monthPicker"
             android:layout_width="0dp"
             android:layout_weight ="3"
@@ -44,7 +44,7 @@
             app:wheel_atmospheric="true"
             app:wheel_item_align="right" />
 
-        <com.github.florent37.singledateandtimepicker.widget.WheelYearPicker
+        <com.henninghall.date_picker.single_picker.widget.WheelYearPicker
             android:id="@+id/yearPicker"
             android:layout_width="0dp"
             android:layout_weight ="2"
@@ -54,7 +54,7 @@
             android:paddingLeft="5dp"
             android:paddingRight="15dp"/>
 
-        <com.github.florent37.singledateandtimepicker.widget.WheelHourPicker
+        <com.henninghall.date_picker.single_picker.widget.WheelHourPicker
             android:id="@+id/hoursPicker"
             android:layout_width="0dp"
             android:layout_weight ="1"
@@ -64,7 +64,7 @@
             app:wheel_atmospheric="true"
             app:wheel_item_align="center" />
 
-        <com.github.florent37.singledateandtimepicker.widget.WheelMinutePicker
+        <com.henninghall.date_picker.single_picker.widget.WheelMinutePicker
             android:id="@+id/minutesPicker"
             android:layout_width="0dp"
             android:layout_weight ="1"
@@ -74,7 +74,7 @@
             app:wheel_atmospheric="true"
             app:wheel_item_align="center" />
 
-        <com.github.florent37.singledateandtimepicker.widget.WheelAmPmPicker
+        <com.henninghall.date_picker.single_picker.widget.WheelAmPmPicker
             android:id="@+id/amPmPicker"
             android:layout_width="0dp"
             android:layout_weight ="1"

@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 >
 
-                <com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker
+                <com.henninghall.date_picker.single_picker.SingleDateAndTimePicker
                     android:id="@+id/picker_tab_0"
                     android:layout_width="match_parent"
                     android:layout_height="230dp"
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 >
 
-                <com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker
+                <com.henninghall.date_picker.single_picker.SingleDateAndTimePicker
                     android:id="@+id/picker_tab_1"
                     android:layout_width="match_parent"
                     android:layout_height="230dp"

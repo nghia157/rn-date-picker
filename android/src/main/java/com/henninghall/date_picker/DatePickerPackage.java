@@ -5,6 +5,7 @@ import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+import com.henninghall.date_picker.single_picker.SingleDatePickerManager;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -25,7 +26,8 @@ public class DatePickerPackage implements ReactPackage {
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         context = reactContext;
         return Arrays.<ViewManager> asList(
-                new DatePickerManager()
+                new DatePickerManager(),
+                new SingleDatePickerManager()
         );
     }
 

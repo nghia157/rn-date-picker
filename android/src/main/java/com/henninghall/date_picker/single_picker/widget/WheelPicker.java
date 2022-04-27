@@ -174,12 +174,10 @@ public abstract class WheelPicker<V> extends View {
 
         scroller = new Scroller(getContext());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
-            ViewConfiguration conf = ViewConfiguration.get(getContext());
-            minimumVelocity = conf.getScaledMinimumFlingVelocity();
-            maximumVelocity = conf.getScaledMaximumFlingVelocity();
-            touchSlop = conf.getScaledTouchSlop();
-        }
+        ViewConfiguration conf = ViewConfiguration.get(getContext());
+        minimumVelocity = conf.getScaledMinimumFlingVelocity();
+        maximumVelocity = conf.getScaledMaximumFlingVelocity();
+        touchSlop = conf.getScaledTouchSlop();
 
         init();
         defaultValue = initDefault();
