@@ -2,33 +2,30 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="horizontal">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center"
         android:gravity="center"
         android:orientation="horizontal">
 
         <com.henninghall.date_picker.single_picker.widget.WheelDayPicker
             android:id="@+id/daysPicker"
             android:layout_width="0dp"
-            android:layout_weight ="3"
             android:layout_height="match_parent"
-            android:paddingRight="5dp"
+            android:layout_weight="3"
             android:paddingLeft="5dp"
+            android:paddingRight="5dp"
             app:wheel_atmospheric="true"
-            app:wheel_item_align="right"
-            />
+            app:wheel_item_align="right" />
 
         <com.henninghall.date_picker.single_picker.widget.WheelDayOfMonthPicker
             android:id="@+id/daysOfMonthPicker"
             android:layout_width="0dp"
-            android:layout_weight ="2"
             android:layout_height="match_parent"
+            android:layout_weight="2"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             app:wheel_atmospheric="true"
@@ -37,8 +34,8 @@
         <com.henninghall.date_picker.single_picker.widget.WheelMonthPicker
             android:id="@+id/monthPicker"
             android:layout_width="0dp"
-            android:layout_weight ="3"
             android:layout_height="match_parent"
+            android:layout_weight="3"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             app:wheel_atmospheric="true"
@@ -47,18 +44,26 @@
         <com.henninghall.date_picker.single_picker.widget.WheelYearPicker
             android:id="@+id/yearPicker"
             android:layout_width="0dp"
-            android:layout_weight ="2"
             android:layout_height="match_parent"
-            app:wheel_atmospheric="true"
-            app:wheel_item_align="right"
+            android:layout_weight="2"
             android:paddingLeft="5dp"
-            android:paddingRight="15dp"/>
+            android:paddingRight="15dp"
+            app:wheel_atmospheric="true"
+            app:wheel_item_align="right" />
+
+        <View
+            android:id="@+id/timeSpaceLeft"
+            android:layout_width="0dp"
+            android:background="#f0f"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:visibility="gone" />
 
         <com.henninghall.date_picker.single_picker.widget.WheelHourPicker
             android:id="@+id/hoursPicker"
             android:layout_width="0dp"
-            android:layout_weight ="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             app:wheel_atmospheric="true"
@@ -67,8 +72,8 @@
         <com.henninghall.date_picker.single_picker.widget.WheelMinutePicker
             android:id="@+id/minutesPicker"
             android:layout_width="0dp"
-            android:layout_weight ="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             app:wheel_atmospheric="true"
@@ -77,14 +82,21 @@
         <com.henninghall.date_picker.single_picker.widget.WheelAmPmPicker
             android:id="@+id/amPmPicker"
             android:layout_width="0dp"
-            android:layout_weight ="1"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:paddingLeft="10dp"
             android:paddingRight="5dp"
             app:wheel_atmospheric="true"
             app:wheel_item_align="center"
             app:wheel_visible_item_count="2" />
 
+        <View
+            android:id="@+id/timeSpaceRight"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="#f0f"
+            android:layout_weight="1.5"
+            android:visibility="gone" />
     </LinearLayout>
 
     <View
@@ -106,13 +118,13 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/picker_default_divider_height"
             android:layout_alignParentTop="true"
-            android:background="@drawable/picker_default_divider"/>
+            android:background="@drawable/picker_default_divider" />
 
         <View
             android:id="@+id/picker_divider_2"
             android:layout_width="match_parent"
             android:layout_height="@dimen/picker_default_divider_height"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/picker_default_divider"/>
+            android:background="@drawable/picker_default_divider" />
     </RelativeLayout>
 </FrameLayout>

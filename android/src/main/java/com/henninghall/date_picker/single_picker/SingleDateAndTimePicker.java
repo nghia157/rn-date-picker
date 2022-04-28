@@ -1,20 +1,25 @@
 package com.henninghall.date_picker.single_picker;
 
 
+import static com.henninghall.date_picker.models.Is24HourSource.locale;
 import static com.henninghall.date_picker.single_picker.widget.SingleDateAndTimeConstants.DAYS_PADDING;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.Space;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,8 +27,12 @@ import androidx.core.content.ContextCompat;
 
 import com.facebook.react.bridge.Dynamic;
 import com.henninghall.date_picker.DatePickerPackage;
+import com.henninghall.date_picker.LocaleUtils;
 import com.henninghall.date_picker.R;
 import com.henninghall.date_picker.State;
+import com.henninghall.date_picker.Utils;
+import com.henninghall.date_picker.models.Mode;
+import com.henninghall.date_picker.models.Variant;
 import com.henninghall.date_picker.props.DateProp;
 import com.henninghall.date_picker.props.DividerHeightProp;
 import com.henninghall.date_picker.props.FadeToColorProp;
@@ -60,17 +69,24 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 
-public class SingleDateAndTimePicker extends LinearLayout {
+public class SingleDateAndTimePicker extends FrameLayout {
 
     public static final boolean IS_CYCLIC_DEFAULT = false;
     public static final boolean IS_CURVED_DEFAULT = true;
-    public static final boolean MUST_BE_ON_FUTURE_DEFAULT = true;
+    public static final boolean MUST_BE_ON_FUTURE_DEFAULT = false;
     public static final int DELAY_BEFORE_CHECK_PAST = 200;
     private static final int VISIBLE_ITEM_COUNT_DEFAULT = 7;
     private static final int PM_HOUR_ADDITION = 12;
     public static final int ALIGN_CENTER = 0;
     public static final int ALIGN_LEFT = 1;
     public static final int ALIGN_RIGHT = 2;
+
+    public static final String MODE_TIME = "time";
+    public static final String MODE_DATETIME = "datetime";
+
+    public static final String STYLE_IOS = "iosClone";
+    public static final String STYLE_DEFAULT = "default";
+
     private DateHelper dateHelper = new DateHelper();
 
     private static final CharSequence FORMAT_24_HOUR = "EEE d MMM H:mm";
@@ -94,6 +110,11 @@ public class SingleDateAndTimePicker extends LinearLayout {
     @NonNull
     private WheelAmPmPicker amPmPicker;
 
+    @NonNull
+    private View timeSpaceLeft;
+    @NonNull
+    private View timeSpaceRight;
+
     private List<WheelPicker> pickers = new ArrayList<>();
 
     private List<OnDateChangedListener> listeners = new ArrayList<>();
@@ -109,12 +130,16 @@ public class SingleDateAndTimePicker extends LinearLayout {
     @NonNull
     private Date defaultDate;
 
+    private String mode = MODE_DATETIME;
+    private String style = STYLE_DEFAULT;
+
     private boolean displayYears = false;
     private boolean displayMonth = false;
     private boolean displayDaysOfMonth = false;
     private boolean displayDays = true;
     private boolean displayMinutes = true;
     private boolean displayHours = true;
+    private boolean displayTimeSpace = false;
 
     private boolean isAmPm;
 
@@ -147,11 +172,13 @@ public class SingleDateAndTimePicker extends LinearLayout {
     }
 
     private void initView() {
+        this.setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//        setGravity(Gravity.CENTER);
         defaultDate = new Date();
 //        isAmPm = !(DateFormat.is24HourFormat(this.getContext()));
         isAmPm = false;
-        inflate(this.getContext(), R.layout.single_day_and_time_picker, this);
 
+        inflate(this.getContext(), R.layout.single_day_and_time_picker, this);
         yearsPicker = findViewById(R.id.yearPicker);
         monthPicker = findViewById(R.id.monthPicker);
         daysOfMonthPicker = findViewById(R.id.daysOfMonthPicker);
@@ -160,6 +187,8 @@ public class SingleDateAndTimePicker extends LinearLayout {
         hoursPicker = findViewById(R.id.hoursPicker);
         amPmPicker = findViewById(R.id.amPmPicker);
         dtSelector = findViewById(R.id.dtSelector);
+        timeSpaceLeft = findViewById(R.id.timeSpaceLeft);
+        timeSpaceRight = findViewById(R.id.timeSpaceRight);
 
         pickers.addAll(Arrays.asList(
                 daysPicker,
@@ -182,7 +211,7 @@ public class SingleDateAndTimePicker extends LinearLayout {
         setTodayText(new DateWithLabel(a.getString(R.styleable.SingleDateAndTimePicker_picker_todayText), new Date()));
         setTextColor(a.getColor(R.styleable.SingleDateAndTimePicker_picker_textColor, ContextCompat.getColor(context, R.color.picker_default_text_color)));
         setSelectedTextColor(a.getColor(R.styleable.SingleDateAndTimePicker_picker_selectedTextColor, ContextCompat.getColor(context, R.color.picker_default_selected_text_color)));
-        setSelectorColor(a.getColor(R.styleable.SingleDateAndTimePicker_picker_selectorColor, ContextCompat.getColor(context, R.color.picker_default_selector_color)));
+        setSelectorColor(a.getColor(R.styleable.SingleDateAndTimePicker_picker_selectorColor, ContextCompat.getColor(context, android.R.color.transparent)));
         setItemSpacing(a.getDimensionPixelSize(R.styleable.SingleDateAndTimePicker_picker_itemSpacing, resources.getDimensionPixelSize(R.dimen.wheelSelectorHeight)));
         setCurvedMaxAngle(a.getInteger(R.styleable.SingleDateAndTimePicker_picker_curvedMaxAngle, WheelPicker.MAX_ANGLE));
         setSelectorHeight(a.getDimensionPixelSize(R.styleable.SingleDateAndTimePicker_picker_selectorHeight, resources.getDimensionPixelSize(R.dimen.wheelSelectorHeight)));
@@ -202,9 +231,10 @@ public class SingleDateAndTimePicker extends LinearLayout {
         setDisplayYears(a.getBoolean(R.styleable.SingleDateAndTimePicker_picker_displayYears, displayYears));
         setDisplayDaysOfMonth(a.getBoolean(R.styleable.SingleDateAndTimePicker_picker_displayDaysOfMonth, displayDaysOfMonth));
         setDisplayMonthNumbers(a.getBoolean(R.styleable.SingleDateAndTimePicker_picker_displayMonthNumbers, monthPicker.displayMonthNumbers()));
+
         String monthFormat = a.getString(R.styleable.SingleDateAndTimePicker_picker_monthFormat);
         setMonthFormat(TextUtils.isEmpty(monthFormat) ? WheelMonthPicker.MONTH_FORMAT : monthFormat);
-        setTextAlign(a.getInt(R.styleable.SingleDateAndTimePicker_picker_textAlign, ALIGN_RIGHT));
+        setTextAlign(a.getInt(R.styleable.SingleDateAndTimePicker_picker_textAlign, ALIGN_CENTER));
 
         checkSettings();
         setMinYear();
@@ -343,6 +373,12 @@ public class SingleDateAndTimePicker extends LinearLayout {
         this.displayMonth = displayMonths;
         monthPicker.setVisibility(displayMonths ? VISIBLE : GONE);
         checkSettings();
+    }
+
+    public void setDisplayTimeSpace(boolean isDisplay) {
+        this.displayTimeSpace = isDisplay;
+        timeSpaceLeft.setVisibility(isDisplay ? VISIBLE : GONE);
+        timeSpaceRight.setVisibility(isDisplay ? VISIBLE : GONE);
     }
 
     public void setDisplayDaysOfMonth(boolean displayDaysOfMonth) {
@@ -702,47 +738,84 @@ public class SingleDateAndTimePicker extends LinearLayout {
 //            this.addView(layout, layoutParams);
 //            uiManager = new UIManager(state, this);
 //        }
+        if (didUpdate(HeightProp.name)) {
+            Log.d("leon", "update: height" + state.getHeight());
+            setSelectorHeight(Utils.dpToPixels(state.getHeight()));
 
-        if (didUpdate(FadeToColorProp.name)) {
-//            uiManager.updateFadeToColor();
-            Log.d("leon", "update: FadeToColorProp " + state.getFadeToColor());
+//            uiManager.updateHeight();
         }
+
+        if (didUpdate(VariantProp.name, ModeProp.name, Is24hourSourceProp.name, LocaleProp.name)) {
+            setDisplayYears(state.getMode() == Mode.date);
+            setDisplayMonths(state.getMode() == Mode.date);
+            setDisplayDaysOfMonth(state.getMode() == Mode.date);
+            setDisplayDays(state.getMode() == Mode.datetime);
+            setCurved(state.getVariant() == Variant.iosClone);
+            setDisplayTimeSpace(state.getMode() == Mode.time);
+            boolean is24Hour =(state.getIs24HourSource() == locale && LocaleUtils.localeUsesAmPm(state.getLocale())) || Utils.deviceUsesAmPm();
+            setIsAmPm(!is24Hour);
+        }
+
+        if(didUpdate(MinimumDateProp.name)){
+            setMinDate(state.getMinimumDate().getTime());
+        }
+
+        if(didUpdate(MaximumDateProp.name)){
+            setMaxDate(state.getMaximumDate().getTime());
+        }
+
+        if(didUpdate(DateProp.name)){
+            setMaxDate(state.getDate().getTime());
+        }
+
+
+//        if (didUpdate(FadeToColorProp.name)) {
+////            uiManager.updateFadeToColor();
+//            Log.d("leon", "update: FadeToColorProp " + state.getFadeToColor());
+//        }
 
         if (didUpdate(TextColorProp.name)) {
 //            uiManager.updateTextColor();
             Log.d("leon", "update: " + state.getTextColor());
+            int fullColor = Color.parseColor(state.getTextColor());
+            setSelectedTextColor(fullColor);
+            setTextColor(Color.argb(
+                    (int) (Color.alpha(fullColor) * ((float) 0x70 / (float) 0xff)),
+                    Color.red(fullColor),
+                    Color.green(fullColor),
+                    Color.blue((fullColor))
+            ));
+
         }
 
-        if (didUpdate(ModeProp.name, VariantProp.name, Is24hourSourceProp.name)) {
-//            uiManager.updateWheelVisibility();
-        }
+//        if (didUpdate(ModeProp.name, VariantProp.name, Is24hourSourceProp.name)) {
+////            uiManager.updateWheelVisibility();
+//            Log.d("leon", "update: mode: " + state.getMode() + ", variant: " + state.getVariant() + ", is24hour: " + state.getIs24HourSource());
+//        }
 
-        if (didUpdate(HeightProp.name)) {
-//            uiManager.updateHeight();
-        }
 
-        if (didUpdate(DividerHeightProp.name)) {
-//            uiManager.updateDividerHeight();
-        }
+//        if (didUpdate(DividerHeightProp.name)) {
+////            uiManager.updateDividerHeight();
+//        }
+//
+//        if (didUpdate(ModeProp.name, LocaleProp.name, VariantProp.name, Is24hourSourceProp.name)) {
+////            uiManager.updateWheelOrder();
+//        }
+//
+//        if (didUpdate(ModeProp.name)) {
+////            uiManager.updateWheelPadding();
+//        }
+//
+//        if (didUpdate(DateProp.name, HeightProp.name, LocaleProp.name,
+//                MaximumDateProp.name, MinimumDateProp.name, MinuteIntervalProp.name, ModeProp.name,
+//                UtcProp.name, VariantProp.name
+//        )) {
+////            uiManager.updateDisplayValues();
+//        }
 
-        if (didUpdate(ModeProp.name, LocaleProp.name, VariantProp.name, Is24hourSourceProp.name)) {
-//            uiManager.updateWheelOrder();
-        }
-
-        if (didUpdate(ModeProp.name)) {
-//            uiManager.updateWheelPadding();
-        }
-
-        if (didUpdate(DateProp.name, HeightProp.name, LocaleProp.name,
-                MaximumDateProp.name, MinimumDateProp.name, MinuteIntervalProp.name, ModeProp.name,
-                UtcProp.name, VariantProp.name
-        )) {
-//            uiManager.updateDisplayValues();
-        }
-
-        if (didUpdate(LocaleProp.name)) {
-            Accessibility.setLocale(state.getLocale());
-        }
+//        if (didUpdate(LocaleProp.name)) {
+//            Accessibility.setLocale(state.getLocale());
+//        }
 
 //        uiManager.setWheelsToDate();
         updatedProps.clear();
