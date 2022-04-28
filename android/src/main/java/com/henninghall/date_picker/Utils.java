@@ -110,4 +110,7 @@ public class Utils {
     public static int toDp(int pixels){
         return (int) (pixels * DatePickerPackage.context.getResources().getDisplayMetrics().density);
     }
+    public static int dpToPixels(int dp){
+        return (int) (dp / DatePickerPackage.context.getResources().getDisplayMetrics().density);
+    }
 }
