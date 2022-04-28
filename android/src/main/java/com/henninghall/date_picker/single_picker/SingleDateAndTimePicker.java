@@ -27,6 +27,7 @@ import androidx.core.content.ContextCompat;
 
 import com.facebook.react.bridge.Dynamic;
 import com.henninghall.date_picker.DatePickerPackage;
+import com.henninghall.date_picker.Emitter;
 import com.henninghall.date_picker.LocaleUtils;
 import com.henninghall.date_picker.R;
 import com.henninghall.date_picker.State;
@@ -677,6 +678,10 @@ public class SingleDateAndTimePicker extends FrameLayout {
         final Date date = getDate();
         final CharSequence format = isAmPm ? FORMAT_12_HOUR : FORMAT_24_HOUR;
         final String displayed = DateFormat.format(format, date).toString();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(dateHelper.getTimeZone());
+        calendar.setTime(date);
+        Emitter.onDateChange(calendar, calendar.toString(), this);
         for (OnDateChangedListener listener : listeners) {
             listener.onDateChanged(displayed, date);
         }
@@ -765,7 +770,7 @@ public class SingleDateAndTimePicker extends FrameLayout {
         }
 
         if(didUpdate(DateProp.name)){
-            setMaxDate(state.getDate().getTime());
+            setDefaultDate(state.getDate().getTime());
         }
 
 
